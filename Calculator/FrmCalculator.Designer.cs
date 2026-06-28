@@ -48,6 +48,7 @@
             BtnClear = new Button();
             label1 = new Label();
             TxtScreen = new TextBox();
+            BtnPow = new Button();
             SuspendLayout();
             // 
             // Btn7
@@ -174,7 +175,7 @@
             // 
             Btn0.Location = new Point(23, 358);
             Btn0.Name = "Btn0";
-            Btn0.Size = new Size(174, 51);
+            Btn0.Size = new Size(114, 51);
             Btn0.TabIndex = 12;
             Btn0.Text = "0";
             Btn0.UseVisualStyleBackColor = true;
@@ -182,7 +183,7 @@
             // 
             // BtnDot
             // 
-            BtnDot.Location = new Point(206, 358);
+            BtnDot.Location = new Point(143, 358);
             BtnDot.Name = "BtnDot";
             BtnDot.Size = new Size(54, 51);
             BtnDot.TabIndex = 13;
@@ -192,7 +193,7 @@
             // 
             // BtnEquals
             // 
-            BtnEquals.Location = new Point(203, 301);
+            BtnEquals.Location = new Point(203, 358);
             BtnEquals.Name = "BtnEquals";
             BtnEquals.Size = new Size(54, 51);
             BtnEquals.TabIndex = 14;
@@ -250,11 +251,22 @@
             TxtScreen.TabIndex = 20;
             TxtScreen.TextAlign = HorizontalAlignment.Right;
             // 
+            // BtnPow
+            // 
+            BtnPow.Location = new Point(203, 301);
+            BtnPow.Name = "BtnPow";
+            BtnPow.Size = new Size(54, 51);
+            BtnPow.TabIndex = 21;
+            BtnPow.Text = "^";
+            BtnPow.UseVisualStyleBackColor = true;
+            BtnPow.Click += BtnPow_Click;
+            // 
             // FrmCalculator
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(281, 435);
+            ClientSize = new Size(280, 435);
+            Controls.Add(BtnPow);
             Controls.Add(TxtScreen);
             Controls.Add(label1);
             Controls.Add(BtnDivide);
@@ -280,7 +292,6 @@
             MinimizeBox = false;
             Name = "FrmCalculator";
             Text = "Calculator";
-            Load += Form1_Load;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -307,5 +318,6 @@
         private Button BtnClear;
         private Label label1;
         private TextBox TxtScreen;
+        private Button BtnPow;
     }
 }
