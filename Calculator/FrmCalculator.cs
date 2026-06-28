@@ -2,24 +2,24 @@ namespace Calculator
 {
     public partial class FrmCalculator : Form
     {
-        double firstNumber;
-        double secondNumber;
-        string @operator = "";
-        bool shouldClearScreen = false;
+        double firstNumber;          // Guarda el primer número que ingresa el usuario
+        double secondNumber;         // Guarda el segundo número que ingresa el usuario
+        string @operator = "";       // Guarda el operador seleccionado (+, -, *, /, %, ^)
+        bool shouldClearScreen = false;  // Controla si la pantalla debe limpiarse al escribir el siguiente número
 
 
-        // El contructor es lo primero que se hace cuando se instancia una clase
-        // En este caso se inicializan los componentes del formulario, es decir los controles
-        // Esto lo hace de manera automática el lenguaje
+        // El constructor se ejecuta automáticamente cuando se crea el formulario.
+        // Aquí se inicializan todos los componentes visuales (botones, caja de texto, etc.)
+        // Esto lo hace el método InitializeComponent(), generado automáticamente por Visual Studio.
         public FrmCalculator()
         {
             InitializeComponent();
         }
 
-        // Estos son los métodos que estan asociados al evento click de cada botón 
-        // If, esto lo que hace es que verifica si debería limpiar la pantalla cuando agregamos un #, para permitir agregar el próx #
-        // ShouldClearScreem = false, porque no quiero que muestre el 1er # que agregué
-        // TxtScreen.Text += lo que hace es que muestra el contenido del TxtS + el #
+        // Estos métodos se ejecutan cuando el usuario hace clic en un botón de número (0-9).
+        // Si shouldClearScreen está en true (porque venimos de un resultado), se limpia la pantalla
+        // antes de escribir el nuevo número. Luego se agrega el dígito al final del texto actual.
+        // shouldClearScreen se pone en false para que el siguiente dígito se agregue normalmente.
         #region numbersButtons
         private void Btn0_Click(object sender, EventArgs e)
         {
@@ -133,9 +133,9 @@ namespace Calculator
         }
         #endregion
 
-        // If (!TxtScreen.Text.Contains('.')), esto me pregunta si el TxtS no contiene un ".", si no lo contiene el lo agrega,
-        // en caso de que sí, no hace nada
-        // Nota: el simbolo de exclamacion (!) delante de la operacion la niega es decir, en lugar de contiene, es NO contiene
+        // Si el texto en pantalla aún NO contiene un punto (.), lo agrega.
+        // El signo "!" delante de la condición la niega: "si NO contiene punto".
+        // Esto evita que el usuario ponga dos puntos decimales en el mismo número (ej: 5.4.3).
         private void BtnDot_Click(object sender, EventArgs e)
         {
             if (shouldClearScreen)
@@ -151,10 +151,10 @@ namespace Calculator
         }
 
 
-        // Operaciones de los botones, son supuestos a ser clickeados luego de colocar el 1er # 
-        // se asigna el simbolo del operador,
-        // se asigna a la variable firstNumber la conversión del texto en la pantalla, a double, (todo en la pantalla es un string)
-        // Luego se limpia la pantalla para dejarlo lista para colocar el 2do #
+        // Al hacer clic en un operador (+, -, *, /, %, ^):
+        // 1. Guardamos el símbolo del operador en la variable @operator
+        // 2. Convertimos el texto de la pantalla a número (double) y lo guardamos en firstNumber
+        // 3. Limpiamos la pantalla para que el usuario ingrese el segundo número
         #region OperationsButtons
         private void BtnPlus_Click(object sender, EventArgs e)
         {
@@ -199,7 +199,7 @@ namespace Calculator
         }
         #endregion
 
-        // clear básicamente limpia la pantalla y restablece las variables utlizadas para poder inicar una operación desde cero
+        // Limpia la pantalla y reinicia todas las variables para empezar una operación nueva desde cero.
         private void BtnClear_Click(object sender, EventArgs e)
         {
             TxtScreen.Clear();
@@ -209,14 +209,13 @@ namespace Calculator
             shouldClearScreen = false;
         }
 
-        // Este se ejecuta cuando se hace click (evento click) sobre el boton de igual
-        // se asigna a la variable SeconN la conversión del texto en la pantalla, a double, (todo en la pantalla es un string)
-        // se declara la varible de result para que almacene el resultado
-        // Switch, evalua la operación que se realiza (nos evita realizar muchos if),
-        // Dependiendo la operación que se haya seleccionado, llama al método correspondiente en la clase Calculator y lo asigna a la var result
-        // TxtScreen.Text = result.ToString();, convierte el resultado en un string otra vez, y lo asigna al TxtS
-        // break termina la evaluacion
-        // Al final se indica que debe limpiar la pantalla en la variable shouldClearScreen, para que el prox # que se le click sepa que debe limpiar
+        // Este método se ejecuta cuando el usuario hace clic en "=".
+        // 1. Toma el texto de la pantalla, lo convierte a número (double) y lo guarda en secondNumber
+        // 2. Evalúa con un switch qué operación se va a realizar, según el valor de @operator
+        //    (switch es como varios if pero más ordenado)
+        // 3. Llama al método correspondiente de la clase Calculator y guarda el resultado
+        // 4. Convierte el resultado a texto y lo muestra en la pantalla
+        // 5. Al final, activa shouldClearScreen para que el próximo número se escriba en pantalla limpia
         private void BtnEquals_Click(object sender, EventArgs e)
         {
             secondNumber = double.Parse(TxtScreen.Text);
